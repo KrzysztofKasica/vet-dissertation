@@ -5,7 +5,8 @@ import argon2 from 'argon2';
 import { emailValidation, passwordValidation } from "../validation";
 const userRepository = dataSourceConn.manager.getRepository(User);
 
-export const getAllUsers = async (_: Request, res: Response) => {
+export const getAllUsers = async (req: Request, res: Response) => {
+    console.log('action from user: ', req.session.userId);
     const allUsers = await userRepository.find()
     res.send(allUsers);
 }
