@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Entity, OneToMany } from "typeorm";
 import { Pet } from "./Pet";
 import { User } from "./User";
 
