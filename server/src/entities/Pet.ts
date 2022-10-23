@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Client } from "./Client";
 import { User } from "./User";
 
 @Entity()
@@ -15,7 +16,9 @@ export class Pet {
     @Column()
     dateOfBirth!: Date;
 
-    @ManyToOne(() => User, (user) => user.pets)
+    @ManyToOne(() => Client, (client) => client.pets, {
+        onDelete: 'CASCADE',
+    })
     user: User
 
     @CreateDateColumn()

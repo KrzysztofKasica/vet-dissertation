@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany } from "typeorm"
-import { Pet } from "./Pet";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
 
 @Entity()
 export class User {
@@ -17,9 +16,6 @@ export class User {
 
     @Column()
     lastName!: string;
-
-    @OneToMany(() => Pet, (pet) => pet.user)
-    pets: Pet[]
 
     @CreateDateColumn()
     createdAt: Date;
