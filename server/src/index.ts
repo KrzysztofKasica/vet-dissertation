@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import express from 'express';
-import { userRouter } from "./routers/user";
+import { clientRouter } from "./routers/client";
 import { dataSourceConn } from "./app-data-source";
 import { User } from "./entities/User";
 import { createClient } from 'redis';
@@ -35,10 +35,12 @@ const main = async () => {
         resave: false,
         })
     )
+    const cors = require("cors");
+    app.use(cors());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-
-    app.get('/adduser', async (_, res) => {
+    
+    app.get('/adduser', async (_    , res) => {
         // const user = new User();
         // user.email = 'gowno2';
         // user.password = 'gown2o';
@@ -46,13 +48,14 @@ const main = async () => {
         // user.lastName = 'kasi2ca';
         // await conn.manager.save(user);
         // console.log('user ', user.firstName, ' added');
+        console.log('got req')
         res.send("hellso");
     })
     app.get('/test', async (_, res) => {
         const users = await dataSourceConn.manager.find(User);
         res.send(users);
     })
-    app.use('/user', userRouter);
+    app.use('/client', clientRouter);
     app.listen(4000, () => {
         console.log('server started on localhost:4000');
     })
