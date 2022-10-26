@@ -1,6 +1,8 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Client } from "./Client";
-import { User } from "./User";
+import { Prescription } from "./Prescription";
+import { Species } from "./Species";
+import { Visit } from "./Visit";
 
 @Entity()
 export class Pet {
@@ -10,8 +12,8 @@ export class Pet {
     @Column()
     name!: string;
 
-    @Column()
-    spiecies!: string;
+    @ManyToOne(() => Species, (species) => species.pets)
+    species: Species;
 
     @Column()
     dateOfBirth!: Date;
@@ -19,7 +21,15 @@ export class Pet {
     @ManyToOne(() => Client, (client) => client.pets, {
         onDelete: 'CASCADE',
     })
-    user: User
+    client: Client;
+
+    @OneToMany(() => Prescription, (prescription) => prescription.pet, {
+        cascade: true,
+    })
+    prescriptions: Prescription[];
+
+    @OneToMany(() => Visit, (visits) => visits.pet)
+    visits: Visit[];
 
     @CreateDateColumn()
     createdAt: Date;

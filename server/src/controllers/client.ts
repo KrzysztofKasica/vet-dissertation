@@ -12,19 +12,19 @@ export const getAllClients = async (req: Request, res: Response) => {
 }
 
 export const registerClient = async (req: Request, res: Response) => {
-    if(!emailValidation(req.body.email)) {
+    if(!emailValidation(req.body.data.email)) {
         res.status(400).send('Invalid email');
     }
-    else if (!passwordValidation(req.body.password)) {
+    else if (!passwordValidation(req.body.data.password)) {
         res.status(400).send('Password has to : be between 8-32 characters long, contain at least one number, contain at least one lowercase letter, contain at least one uppercase letter, contain at least one special character');
     }
     else {
         const newClient = new Client();
-        newClient.email = req.body.email;
-        const hashPass = await argon2.hash(req.body.password);
+        newClient.email = req.body.data.email;
+        const hashPass = await argon2.hash(req.body.data.password);
         newClient.password = hashPass;
-        newClient.firstName = req.body.firstName;
-        newClient.lastName = req.body.lastName;
+        newClient.firstName = req.body.data.firstName;
+        newClient.lastName = req.body.data.lastName;
         try {
             await dataSourceConn.manager.save(newClient);
             res.status(200).send('Client created');
@@ -42,12 +42,12 @@ export const registerClient = async (req: Request, res: Response) => {
 }
 
 export const loginClient = async (req: Request, res: Response) => {
-    const client = await clientRepository.findOneBy({email: req.body.email});
+    const client = await clientRepository.findOneBy({email: req.body.data.email});
     if (!client) {
         res.status(400).send('Email doesn\'t exist');
     }
     else {
-        const valid = await argon2.verify(client.password, req.body.password);
+        const valid = await argon2.verify(client.password, req.body.data.password);
         if (!valid) {
             res.status(400).send('Incorrect password');
         }

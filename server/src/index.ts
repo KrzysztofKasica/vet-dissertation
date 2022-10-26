@@ -6,6 +6,7 @@ import { User } from "./entities/User";
 import { createClient } from 'redis';
 import session from "express-session";
 import { __prod__ } from "./constants";
+import cors from "cors";
 const bodyParser = require('body-parser');
 const main = async () => {
     await dataSourceConn.initialize().then(() => {
@@ -35,7 +36,6 @@ const main = async () => {
         resave: false,
         })
     )
-    const cors = require("cors");
     app.use(cors());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());

@@ -5,7 +5,7 @@ import { User } from "./User";
 @Entity()
 export class Client extends User {
 
-    @OneToMany(() => Pet, (pet) => pet.user, {
+    @OneToMany(() => Pet, (pet) => pet.client, {
         cascade: true,
     })
     pets: Pet[]
