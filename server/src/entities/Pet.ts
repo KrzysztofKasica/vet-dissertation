@@ -13,7 +13,7 @@ export class Pet {
     name!: string;
 
     @ManyToOne(() => Species, (species) => species.pets)
-    species: Species;
+    species!: Species;
 
     @Column()
     dateOfBirth!: Date;
@@ -21,7 +21,7 @@ export class Pet {
     @ManyToOne(() => Client, (client) => client.pets, {
         onDelete: 'CASCADE',
     })
-    client: Client;
+    client!: Client;
 
     @OneToMany(() => Prescription, (prescription) => prescription.pet, {
         cascade: true,
