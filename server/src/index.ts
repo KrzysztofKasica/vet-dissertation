@@ -7,7 +7,9 @@ import { createClient } from 'redis';
 import session from "express-session";
 import { __prod__ } from "./constants";
 import cors from "cors";
+import { petRouter } from "./routers/pet";
 const bodyParser = require('body-parser');
+
 const main = async () => {
     await dataSourceConn.initialize().then(() => {
         console.log("Data Source has been initialized!")
@@ -56,6 +58,7 @@ const main = async () => {
         res.send(users);
     })
     app.use('/client', clientRouter);
+    app.use('/pet', petRouter);
     app.listen(4000, () => {
         console.log('server started on localhost:4000');
     })
