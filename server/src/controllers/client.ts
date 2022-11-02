@@ -57,3 +57,15 @@ export const loginClient = async (req: Request, res: Response) => {
         }
     }
 }
+
+export const logoutClient = async (req: Request, res: Response) => {
+    new Promise (() => req.session.destroy(err => {
+        res.clearCookie("qid");
+        if (err) {
+            console.log(err);
+            res.send(false);
+            return;
+        }
+        res.send(true);
+    }))
+}
