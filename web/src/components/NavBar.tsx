@@ -34,7 +34,7 @@ export default function NavBar() {
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
               color={useColorModeValue('gray.800', 'white')}>
-              <Link href='#' _hover={{text_decoration: 'none',}}>Company name</Link>
+              <Link href='/' _hover={{text_decoration: 'none',}}>Company name</Link>
             </Text>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <Nav />
