@@ -1,12 +1,16 @@
-import { Container } from "@chakra-ui/react";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
+import { Center, Flex } from "@chakra-ui/react";
 import { FormikRegister } from "../components/FormikRegister";
+import NavBar from "../components/NavBar";
 
 const Register = () => (
-    <Container>
-        <FormikRegister/>
-        <DarkModeSwitch />
-    </Container>
+        <Flex direction={"column"} justifyContent='center' alignContent={'center'}>
+            <NavBar/>
+            <Center>
+                <Flex maxW='40%'>
+                    <FormikRegister/>
+                </Flex>
+            </Center>
+        </Flex>
 )
 
 export default Register;

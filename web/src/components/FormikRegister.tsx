@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/react"
+import axios from "axios"
 import { Form, Formik } from "formik"
 import { InputField } from "./InputField"
 import { PasswordInput } from "./PasswordInput"
@@ -8,8 +9,15 @@ export const FormikRegister = () => {
     return (
       <Formik
         initialValues={{ email: '', password: '', firstName: '', lastName: '' }}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={async (values) => {
+          console.log('git');
+          const res = await axios.post(
+            'http://127.0.0.1:4000/client/register',
+            {data: values},
+            { headers: { 'Content-Type': 'application/json' } }
+          );
+          console.log(res);
+          console.log(res.data)
         }}
       >
         {({isSubmitting}) => (
