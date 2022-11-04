@@ -56,7 +56,7 @@ export default function NavBar() {
                 bg: buttonBgHover,
                 color: buttonColorHover
               }}
-              href={'#'}>
+              href={'/login'}>
               Sign In
             </Button>
             <Button

@@ -1,17 +1,16 @@
-import { Container, FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
+import { Center, Flex, } from "@chakra-ui/react";
+import { FormikLogin } from "../components/FormikLogin";
+import NavBar from "../components/NavBar";
 
 const Login = () => (
-    <Container>
-        <FormControl>
-            <FormLabel>Email address</FormLabel>
-            <Input type='email' />
-            <FormHelperText>We'll never share your email.</FormHelperText>
-            <FormLabel>Password</FormLabel>
-            <Input type='password' />
-        </FormControl>
-        <DarkModeSwitch />
-    </Container>
+    <Flex direction={"column"} justifyContent='center' alignContent={'center'}>
+        <NavBar/>
+        <Center>
+            <Flex maxW='100%' mt={'10vh'}>
+                <FormikLogin/>
+            </Flex>
+        </Center>
+    </Flex>
 )
 
 export default Login;
