@@ -53,7 +53,7 @@ export const loginClient = async (req: Request, res: Response) => {
         }
         else {
             req.session.clientId = client.id;
-            res.status(200).send(client);
+            res.status(200).send();
         }
     }
 }
