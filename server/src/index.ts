@@ -8,6 +8,7 @@ import session from "express-session";
 import { __prod__ } from "./constants";
 import cors from "cors";
 import { petRouter } from "./routers/pet";
+import { speciesRouter } from "./routers/species";
 const bodyParser = require('body-parser');
 
 const main = async () => {
@@ -59,6 +60,7 @@ const main = async () => {
     })
     app.use('/client', clientRouter);
     app.use('/pet', petRouter);
+    app.use('/species', speciesRouter);
     app.listen(4000, () => {
         console.log('server started on localhost:4000');
     })
