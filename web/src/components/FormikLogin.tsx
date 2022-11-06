@@ -13,7 +13,7 @@ export const FormikLogin = () => {
         initialValues={{ email: '', password: ''}}
         onSubmit={async (values) => {
           await axios.post(
-            'http://127.0.0.1:4000/client/login',
+            'http://localhost:4000/client/login',
             {data: values},
             { headers: { 'Content-Type': 'application/json' } }
           ).then(() => {

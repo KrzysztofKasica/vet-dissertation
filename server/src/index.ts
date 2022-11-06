@@ -9,6 +9,7 @@ import { __prod__ } from "./constants";
 import cors from "cors";
 import { petRouter } from "./routers/pet";
 import { speciesRouter } from "./routers/species";
+import { authRouter } from "./routers/auth";
 const bodyParser = require('body-parser');
 
 const main = async () => {
@@ -61,6 +62,7 @@ const main = async () => {
     app.use('/client', clientRouter);
     app.use('/pet', petRouter);
     app.use('/species', speciesRouter);
+    app.use('/auth', authRouter);
     app.listen(4000, () => {
         console.log('server started on localhost:4000');
     })

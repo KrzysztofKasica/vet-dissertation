@@ -3,6 +3,7 @@ import { dataSourceConn } from "../app-data-source";
 import { Client } from "../entities/Client";
 import argon2 from 'argon2';
 import { emailValidation, passwordValidation } from "../validation";
+import { Doctor } from "../entities/Doctor";
 const clientRepository = dataSourceConn.manager.getRepository(Client);
 
 export const getAllClients = async (req: Request, res: Response) => {
@@ -44,7 +45,19 @@ export const registerClient = async (req: Request, res: Response) => {
 export const loginClient = async (req: Request, res: Response) => {
     const client = await clientRepository.findOneBy({email: req.body.data.email});
     if (!client) {
-        res.status(400).send('Email doesn\'t exist');
+        const doctor = await dataSourceConn.manager.findOneBy(Doctor, {email: req.body.data.email});
+        if(!doctor) {
+            res.status(400).send('Email doesn\'t exist');
+        } else {
+            const valid = await argon2.verify(doctor.password, req.body.data.password);
+            if (!valid) {
+                res.status(400).send('Incorrect password');
+            } else {
+                req.session.clientId = doctor.id;
+                req.session.doctor = true;
+                res.status(200).send();
+            }
+        }
     }
     else {
         const valid = await argon2.verify(client.password, req.body.data.password);
@@ -53,6 +66,8 @@ export const loginClient = async (req: Request, res: Response) => {
         }
         else {
             req.session.clientId = client.id;
+            req.session.doctor = false;
+            console.log(req.session.clientId, ' ', req.session.doctor)
             res.status(200).send();
         }
     }
