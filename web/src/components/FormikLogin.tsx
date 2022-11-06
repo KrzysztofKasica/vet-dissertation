@@ -15,7 +15,7 @@ export const FormikLogin = () => {
           await axios.post(
             'http://localhost:4000/client/login',
             {data: values},
-            { headers: { 'Content-Type': 'application/json' } }
+            { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
           ).then(() => {
             router.push('/');
           }).catch(res => {
