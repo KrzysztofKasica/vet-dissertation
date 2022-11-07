@@ -1,6 +1,7 @@
 import { Entity, OneToMany } from "typeorm";
 import { Pet } from "./Pet";
 import { User } from "./User";
+import { Visit } from "./Visit";
 
 @Entity()
 export class Client extends User {
@@ -9,4 +10,7 @@ export class Client extends User {
         cascade: true,
     })
     pets: Pet[]
+
+    @OneToMany(() => Visit, (visits) => visits.client)
+    visits: Visit[];
 }

@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Client } from "./Client";
 import { Doctor } from "./Doctor";
 import { Pet } from "./Pet";
 import { Prescription } from "./Prescription";
@@ -16,6 +17,9 @@ export class Visit {
 
     @ManyToOne(() => Pet, (pet) => pet.visits)
     pet: Pet;
+
+    @ManyToOne(() => Client, (client) => client.visits)
+    client: Client;
 
     @ManyToOne(() => Doctor, (doctor) => doctor.visits)
     doctor: Doctor;
