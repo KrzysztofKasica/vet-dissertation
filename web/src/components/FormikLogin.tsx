@@ -17,7 +17,7 @@ export const FormikLogin = () => {
             {data: values},
             { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
           ).then(() => {
-            router.push('/');
+            router.push('/dashboard');
           }).catch(res => {
             toast({
                   title: res.response.data,
