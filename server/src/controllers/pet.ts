@@ -82,3 +82,14 @@ export const getPetsByUser = async (req: Request, res: Response) => {
         res.status(400).send('Not Authenticated');
     }
 }
+
+export const getPetById = async (req: Request, res: Response) => {
+    if (isAuth(req)) {
+        const myPet = await petRepository.createQueryBuilder("pet")
+        .where("pet.id = :id", { id: req.body.data.id })
+        .getOne();
+        res.status(200).send(myPet);
+    } else {
+        res.status(400).send('Not Authenticated');
+    }
+}
