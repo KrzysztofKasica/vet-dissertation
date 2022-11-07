@@ -11,16 +11,11 @@ export const auth = async (req: Request, res: Response) => {
 }
 
 export const authDoctor = async (req: Request, res: Response) => {
-    console.log('got req')
-    console.log(req)
     if (isAuth(req)) {
         const isDoc = await isDoctor(req);
         res.status(200).send({data: isDoc.toString()});
-        console.log('jest git', isAuth(req))
         return;
     } else {
-        console.log('jest chij')
         res.status(400).send({auth: false, reason: "Not Authenticated"});
     }
-    console.log(isAuth(req))
 }
