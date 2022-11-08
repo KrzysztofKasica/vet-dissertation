@@ -10,6 +10,8 @@ import cors from "cors";
 import { petRouter } from "./routers/pet";
 import { speciesRouter } from "./routers/species";
 import { authRouter } from "./routers/auth";
+import { visitRouter } from "./routers/visit";
+import { doctorRouter } from "./routers/doctor";
 const bodyParser = require('body-parser');
 
 const main = async () => {
@@ -63,6 +65,8 @@ const main = async () => {
     app.use('/pet', petRouter);
     app.use('/species', speciesRouter);
     app.use('/auth', authRouter);
+    app.use('/visit', visitRouter);
+    app.use('/doctor', doctorRouter);
     app.listen(4000, () => {
         console.log('server started on localhost:4000');
     })
