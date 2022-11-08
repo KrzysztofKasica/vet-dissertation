@@ -4,7 +4,8 @@ import { Doctor } from "./Doctor";
 import { Pet } from "./Pet";
 import { Prescription } from "./Prescription";
 
-enum Status {
+export enum Status {
+    ToBeAccepted = "TO BE ACCEPTED",
     Pending = "PENDING",
     Completed = "COMPLETED",
     Cancelled = "CANCELLED"
@@ -16,13 +17,13 @@ export class Visit {
     id!: number;
 
     @ManyToOne(() => Pet, (pet) => pet.visits)
-    pet: Pet;
+    pet!: Pet;
 
     @ManyToOne(() => Client, (client) => client.visits)
-    client: Client;
+    client!: Client;
 
     @ManyToOne(() => Doctor, (doctor) => doctor.visits)
-    doctor: Doctor;
+    doctor!: Doctor;
 
     @OneToMany(() => Prescription, (prescriptions) => prescriptions.visit)
     prescriptions: Prescription[];
@@ -31,7 +32,7 @@ export class Visit {
     notes: string;
 
     @Column()
-    status: Status;
+    status!: Status;
 
     @Column()
     startDate: Date;
