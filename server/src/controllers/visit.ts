@@ -4,6 +4,7 @@ import { dataSourceConn } from "../app-data-source";
 import { isAuth } from "../isAuth";
 import { petRepository } from "./pet";
 import { doctorRepository } from "./doctor";
+import { clientRepository } from "./client";
 
 const visitRepository = dataSourceConn.manager.getRepository(Visit);
 
@@ -28,18 +29,27 @@ export const createVisit = async (req: Request, res: Response) => {
         .getOne();
         if (myPet) {
             newVisit.pet = myPet;
-            newVisit.client = myPet.client;
-            const myDoctor = await doctorRepository.createQueryBuilder("doctor")
-            .where("doctor.id = :id", { id: req.body.data.doctorId })
+            const client = await clientRepository.createQueryBuilder("client")
+            .where("client.id = :id", { id: req.session.clientId })
             .getOne();
-            if (myDoctor) {
-                try {
-                    await dataSourceConn.manager.save(newVisit);
-                    res.status(200).send('Visit created');
-                }
-                catch (error){
-                    console.log(error);
-                    res.status(500).send('Saving error');
+            if (client) {
+                newVisit.client = client;
+                newVisit.notes = '';
+                const myDoctor = await doctorRepository.createQueryBuilder("doctor")
+                .where("doctor.id = :id", { id: req.body.data.doctorId })
+                .getOne();
+                if (myDoctor) {
+                    newVisit.doctor = myDoctor;
+                    try {
+                        await dataSourceConn.manager.save(newVisit);
+                        res.status(200).send('Visit created');
+                    }
+                    catch (error){
+                        console.log(error);
+                        res.status(500).send('Saving error');
+                    }
+                } else {
+                    res.status(500).send();
                 }
             } else {
                 res.status(500).send();

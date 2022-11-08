@@ -37,9 +37,6 @@ export class Visit {
     @Column()
     startDate: Date;
 
-    @Column()
-    endDate: Date;
-
     @CreateDateColumn()
     createdAt: Date;
 

@@ -1,6 +1,8 @@
 import { Router } from "express";
-import { getVisitByUser } from "../controllers/visit";
+import { createVisit, getVisitByUser } from "../controllers/visit";
 
 export const visitRouter = Router();
 
 visitRouter.get('/getvisits', getVisitByUser);
+
+visitRouter.post('/createvisit', createVisit)
