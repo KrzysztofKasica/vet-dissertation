@@ -4,7 +4,7 @@ import { Client } from "../entities/Client";
 import argon2 from 'argon2';
 import { emailValidation, passwordValidation } from "../validation";
 import { Doctor } from "../entities/Doctor";
-const clientRepository = dataSourceConn.manager.getRepository(Client);
+export const clientRepository = dataSourceConn.manager.getRepository(Client);
 
 export const getAllClients = async (req: Request, res: Response) => {
     console.log('action from user: ', req.session.clientId);
