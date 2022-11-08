@@ -5,7 +5,7 @@ import { dataSourceConn } from "../app-data-source";
 import { Client } from "../entities/Client";
 import { Species } from "../entities/Species";
 
-const petRepository = dataSourceConn.manager.getRepository(Pet);
+export const petRepository = dataSourceConn.manager.getRepository(Pet);
 
 export const createPet = async (req: Request, res: Response) => {
     if (isAuth(req)) {
