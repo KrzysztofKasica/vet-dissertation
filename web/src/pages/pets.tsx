@@ -46,7 +46,7 @@ const Pets= () => {
             <Flex direction={"column"} justifyContent={'center'} alignContent={'space-between'}>
                 <NavBar/>
                 <Flex direction={'row'} justifyContent={'space-between'} alignContent={'center'}>
-                    <Box mt={100} ml={200} maxW='300'>{pets ? <PetList pets={pets} />: null}</Box>
+                    <Box mt={100} ml={200} maxW='300'>{pets ? species ? <PetList pets={pets} species={species} />: null: null}</Box>
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
                         <DashboardButton href='/visits' text='Visit History'/>
                         <DashboardButton href='/' text='Pets'/>
