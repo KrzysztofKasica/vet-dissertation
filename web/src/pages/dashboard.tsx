@@ -1,5 +1,6 @@
-import { Box, Button, Flex, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
 import {  useEffect, useState } from "react";
+import { DashboardButton } from "../components/DashboardButton";
 import NavBar from "../components/NavBar";
 import { VisitList, visitProps } from "../components/VisitsField";
 
@@ -8,11 +9,6 @@ type isDoctorType = {
 }
 
 const Dashboard= () => {
-    const buttonColor = useColorModeValue('white', 'black');
-    const buttonBg = useColorModeValue('green.500', 'green.200');
-    const buttonColorHover = useColorModeValue('gray.100', 'gray.700');
-    const buttonBgHover = useColorModeValue('green.600', 'green.300');
-    
     const [isDoctor, setIsDoctor] = useState<isDoctorType>({data: ''})
     const [status, setStatus] = useState<number>()
     const [visits, setVisits] = useState<Array<visitProps>>()
@@ -45,78 +41,10 @@ const Dashboard= () => {
                 <Flex direction={'row'} justifyContent={'space-between'} alignContent={'center'}>
                     <Box mt={100} ml={200} maxW='300'>{visits ? <VisitList visits={visits} />: null}</Box>
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
-                        <Box height={40} width={40} borderRadius='full'>
-                            <Button
-                                as={'a'}
-                                display={{ base: 'none', md: 'inline-flex' }}
-                                fontSize={'2xl'}
-                                fontWeight={600}
-                                color={buttonColor}
-                                bg={buttonBg}
-                                _hover={{
-                                    bg: buttonBgHover,
-                                    color: buttonColorHover
-                                }}
-                                href={'/visits'}
-                                width={'100%'}
-                                height={'100%'}>
-                                Visit History
-                            </Button>
-                        </Box>
-                        <Box bg='tomato' height={40} width={40} borderRadius='full'>
-                            <Button
-                                as={'a'}
-                                display={{ base: 'none', md: 'inline-flex' }}
-                                fontSize={'3xl'}
-                                fontWeight={600}
-                                color={buttonColor}
-                                bg={buttonBg}
-                                _hover={{
-                                    bg: buttonBgHover,
-                                    color: buttonColorHover
-                                }}
-                                href={'/'}
-                                width={'100%'}
-                                height={'100%'}>
-                                gowno
-                            </Button>
-                        </Box>
-                        <Box bg='tomato' height={40} width={40} borderRadius='full'>
-                            <Button
-                                as={'a'}
-                                display={{ base: 'none', md: 'inline-flex' }}
-                                fontSize={'3xl'}
-                                fontWeight={600}
-                                color={buttonColor}
-                                bg={buttonBg}
-                                _hover={{
-                                    bg: buttonBgHover,
-                                    color: buttonColorHover
-                                }}
-                                href={'/'}
-                                width={'100%'}
-                                height={'100%'}>
-                                gowno
-                            </Button>
-                        </Box>
-                        <Box bg='tomato' height={40} width={40} borderRadius='full'>
-                            <Button
-                                as={'a'}
-                                display={{ base: 'none', md: 'inline-flex' }}
-                                fontSize={'3xl'}
-                                fontWeight={600}
-                                color={buttonColor}
-                                bg={buttonBg}
-                                _hover={{
-                                    bg: buttonBgHover,
-                                    color: buttonColorHover
-                                }}
-                                href={'/'}
-                                width={'100%'}
-                                height={'100%'}>
-                                gowno
-                            </Button>
-                        </Box>
+                        <DashboardButton href='/visits' text='Visit History'/>
+                        <DashboardButton href='/' text='lorem'/>
+                        <DashboardButton href='/' text='lorem'/>
+                        <DashboardButton href='/' text='lorem'/>
                     </SimpleGrid>
                 </Flex>
             </Flex>
