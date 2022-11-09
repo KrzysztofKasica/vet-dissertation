@@ -1,6 +1,4 @@
-import { Text, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
-import { useField } from "formik";
-import { InputHTMLAttributes } from "react";
+import { Box, HStack, Text, } from "@chakra-ui/react";
 
 export type visitProps ={
     visit_id: number;
@@ -15,14 +13,28 @@ interface visitListProps {
 }
 
 export const VisitList = (props: visitListProps) => {
-    const gowno = props.visits
-
+    const visits = props.visits
+    
     return (
         <div>
 
-            {gowno.map(visit => (
-                <Text key={visit.visit_id}>{visit.doctorId}</Text>
-            ))}
+            {visits.map(visit => {
+                const date = visit.visit_startDate.toString().replace('T', ' ').replace(':00.000Z', '')
+                return (    
+                <Box width={400} borderWidth='1px' borderRadius='lg' overflow='hidden' mb={10}>
+                    <HStack display={'flex'} justifyContent={'space-between'}>
+                        <Box>
+                            <Text key={visit.petId}>{visit.petId}</Text>
+                            <Text key={visit.doctorId}>{visit.doctorId}</Text>
+                            <Text key={visit.visit_status}>{visit.visit_status}</Text>
+                        </Box>
+                        <Box>
+                            <Text position={'relative'} top={-5} right={2} key={visit.visit_startDate.toString()}>{date}</Text>
+                        </Box>
+                    </HStack>
+                </Box>
+                )
+                })}
         </div>
     )
 }

@@ -43,8 +43,8 @@ const Dashboard= () => {
             <Flex direction={"column"} justifyContent={'center'} alignContent={'space-between'}>
                 <NavBar/>
                 <Flex direction={'row'} justifyContent={'space-between'} alignContent={'center'}>
-                    <Box ml={300} maxW='300'>{visits ? <VisitList visits={visits} />: null}</Box>
-                    <SimpleGrid mt={100} mr={200} columns={2} spacing={100}>
+                    <Box mt={100} ml={200} maxW='300'>{visits ? <VisitList visits={visits} />: null}</Box>
+                    <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
                         <Box height={40} width={40} borderRadius='full'>
                             <Button
                                 as={'a'}
