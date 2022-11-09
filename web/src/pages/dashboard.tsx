@@ -28,7 +28,7 @@ const Dashboard= () => {
         .then(data => setIsDoctor(data))
         .catch(err => console.log(err))
 
-        fetch('http://localhost:4000/visit/getvisits', {
+        fetch('http://localhost:4000/visit/getlatestvisits', {
         credentials: 'include',
         method: 'get',
         headers: {'Content-Type': 'application/json'}})
@@ -49,7 +49,7 @@ const Dashboard= () => {
                             <Button
                                 as={'a'}
                                 display={{ base: 'none', md: 'inline-flex' }}
-                                fontSize={'3xl'}
+                                fontSize={'2xl'}
                                 fontWeight={600}
                                 color={buttonColor}
                                 bg={buttonBg}
@@ -57,10 +57,10 @@ const Dashboard= () => {
                                     bg: buttonBgHover,
                                     color: buttonColorHover
                                 }}
-                                href={'/'}
+                                href={'/visits'}
                                 width={'100%'}
                                 height={'100%'}>
-                                gowno
+                                Visit History
                             </Button>
                         </Box>
                         <Box bg='tomato' height={40} width={40} borderRadius='full'>

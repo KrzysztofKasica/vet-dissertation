@@ -5,6 +5,6 @@ export const visitRouter = Router();
 
 visitRouter.get('/getvisits', getVisitByUser);
 
-visitRouter.get('/getlasestvisits', getLatestVisitByUser)
+visitRouter.get('/getlatestvisits', getLatestVisitByUser)
 
 visitRouter.post('/createvisit', createVisit)
