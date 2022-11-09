@@ -1,13 +1,13 @@
 import { Box, Flex } from "@chakra-ui/react";
 import {  useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import { VisitList, visitProps } from "../components/VisitsField";
+import { VisitList, visitProps } from "../components/VisitList";
 
 type isDoctorType = {
     data: string
 }
 
-const Dashboard= () => {
+const Visits= () => {
     const [isDoctor, setIsDoctor] = useState<isDoctorType>({data: ''})
     const [status, setStatus] = useState<number>()
     const [visits, setVisits] = useState<Array<visitProps>>()
@@ -50,4 +50,4 @@ const Dashboard= () => {
     
 }
 
-export default Dashboard;
+export default Visits;

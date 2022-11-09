@@ -2,7 +2,7 @@ import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
 import {  useEffect, useState } from "react";
 import { DashboardButton } from "../components/DashboardButton";
 import NavBar from "../components/NavBar";
-import { VisitList, visitProps } from "../components/VisitsField";
+import { VisitList, visitProps } from "../components/VisitList";
 
 type isDoctorType = {
     data: string
@@ -42,9 +42,9 @@ const Dashboard= () => {
                     <Box mt={100} ml={200} maxW='300'>{visits ? <VisitList visits={visits} />: null}</Box>
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
                         <DashboardButton href='/visits' text='Visit History'/>
-                        <DashboardButton href='/' text='lorem'/>
-                        <DashboardButton href='/' text='lorem'/>
-                        <DashboardButton href='/' text='lorem'/>
+                        <DashboardButton href='/' text='Pets'/>
+                        <DashboardButton href='/' text='Prescriptions'/>
+                        <DashboardButton href='/' text='Book a Visit'/>
                     </SimpleGrid>
                 </Flex>
             </Flex>
