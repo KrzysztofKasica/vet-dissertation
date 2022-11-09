@@ -75,8 +75,9 @@ export const editPet = async (req: Request, res: Response) => {
 export const getPetsByUser = async (req: Request, res: Response) => {
     if (isAuth(req)) {
         const myPets = await petRepository.createQueryBuilder("pet")
+        .select(['pet.id', 'pet.name', 'pet.dateOfBirth', 'pet.speciesId'])
         .where("pet.clientId = :id", { id: req.session.clientId })
-        .getMany()
+        .getRawMany()
         res.status(200).send(myPets)
     } else {
         res.status(400).send('Not Authenticated');
