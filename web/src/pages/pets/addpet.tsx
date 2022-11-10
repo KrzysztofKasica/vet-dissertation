@@ -1,7 +1,6 @@
 import {  Center, Flex } from "@chakra-ui/react";
 import {  useEffect, useState } from "react";
 import { FormikAddPet } from "../../components/FormikAddPet";
-import { FormikEditPet } from "../../components/FormikEditPet";
 import NavBar from "../../components/NavBar";
 
 type isDoctorType = {
