@@ -52,7 +52,7 @@ export const editPet = async (req: Request, res: Response) => {
             });
             if (mySpecies) {
                 myPet.species = mySpecies;
-                myPet.dateOfBirth = new Date(req.body.data.date);
+                myPet.dateOfBirth = new Date(req.body.data.dateOfBirth);
                 try {
                     await dataSourceConn.manager.save(myPet);
                     res.status(200).send('Pet updated');
