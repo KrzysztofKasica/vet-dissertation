@@ -72,6 +72,32 @@ export const editPet = async (req: Request, res: Response) => {
     }
 }
 
+export const deletePet = async (req: Request, res: Response) => {
+    if (isAuth(req)) {
+        const myPet = await petRepository.createQueryBuilder("pet")
+        .select(['pet.clientId'])
+        .where("pet.id = :id", { id: req.body.data.id })
+        .getRawOne();
+        if (myPet) {
+            if (myPet.clientId === req.session.clientId) {
+                await petRepository.createQueryBuilder('pet')
+                .delete()
+                .from(Pet)
+                .where("pet.id = :id", { id: req.body.data.id })
+                .execute()
+
+                res.status(200).send("Pet deleted");
+            } else {
+                res.status(400).send('Not Authenticated');
+            }
+        } else {
+            res.status(400).send("Pet doesn't exist")
+        }
+    } else {
+        res.status(400).send('Not Authenticated');
+    }
+}
+
 export const getPetsByUser = async (req: Request, res: Response) => {
     if (isAuth(req)) {
         const myPets = await petRepository.createQueryBuilder("pet")

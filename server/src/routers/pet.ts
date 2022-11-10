@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createPet, doesPetBelongToUser, editPet, getPetById, getPetsByUser } from "../controllers/pet";
+import { createPet, deletePet, doesPetBelongToUser, editPet, getPetById, getPetsByUser } from "../controllers/pet";
 
 export const petRouter = Router();
 
@@ -12,3 +12,5 @@ petRouter.get('/getpets', getPetsByUser);
 petRouter.get('/getpet', getPetById);
 
 petRouter.get('/doespetbelongtouser', doesPetBelongToUser);
+
+petRouter.delete('/deletepet', deletePet)
