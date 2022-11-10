@@ -41,6 +41,7 @@ const Pets= () => {
         .then(data => setSpecies(data))
         .catch(err => console.log(err))
     }, [])
+    //TODO: addpet i deletepet
     if(status===200 && isDoctor.data === "false") {
         return (
             <Flex direction={"column"} justifyContent={'center'} alignContent={'space-between'}>
@@ -48,8 +49,8 @@ const Pets= () => {
                 <Flex direction={'row'} justifyContent={'space-between'} alignContent={'center'}>
                     <Box mt={100} ml={200} maxW='300'>{pets ? species ? <PetList pets={pets} species={species} />: null: null}</Box>
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
-                        <DashboardButton href='/visits' text='Visit History'/>
-                        <DashboardButton href='/' text='Pets'/>
+                        <DashboardButton href='/addpet' text='Add Pet'/>
+                        <DashboardButton href='/deletepet' text='Delete Pet'/>
                     </SimpleGrid>
                 </Flex>
             </Flex>
