@@ -26,10 +26,11 @@ export const PetList = (props: petListProps) => {
 
             {pets.map(pet => {
                 const editUrl = "/pets/" + pet.pet_id.toString() + "/editpet";
-                const date = pet.pet_dateOfBirth.toString().replace('T00:00:00.000Z', '')
+                const date = pet.pet_dateOfBirth.toString().split('T')[0]
                 return (    
                 <Box width={400} borderWidth='1px' borderRadius='lg' overflow='hidden' mb={10}>
                     <HStack display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                        {/* TODO: put buttons in a box so they dont stretch */}
                         <VStack display={'flex'} alignItems={'stretch'}>
                             <Text key={pet.pet_name}>Name: {pet.pet_name}</Text>
                             <SpeciesText key={pet.pet_id} petSpeciesId={pet.speciesId} species={species}/>
