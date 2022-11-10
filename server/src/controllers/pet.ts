@@ -94,3 +94,23 @@ export const getPetById = async (req: Request, res: Response) => {
         res.status(400).send('Not Authenticated');
     }
 }
+
+export const doesPetBelongToUser = async (req: Request, res: Response) => {
+    if (isAuth(req)) {
+        const myPet = await petRepository.createQueryBuilder("pet")
+        .select(['pet.clientId'])
+        .where("pet.id = :id", { id: req.body.data.id })
+        .getRawOne();
+        if (myPet) {
+            if (myPet.clientId === req.session.clientId) {
+                res.status(200).send({data: "true"});
+            } else {
+                res.status(200).send({data: "false"})
+            }
+        } else {
+            res.status(400).send("Pet doesn't exist")
+        }
+    } else {
+        res.status(400).send('Not Authenticated');
+    }
+}
