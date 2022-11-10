@@ -1,5 +1,6 @@
-import { Box, Button, HStack, Text, VStack, } from "@chakra-ui/react";
+import { Box, Button, HStack, Text, useToast, VStack, } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { SpeciesText } from "./SpeciesText";
 
 export type petProps ={
@@ -21,6 +22,8 @@ interface petListProps {
 
 export const PetList = (props: petListProps) => {
     const {pets, species} = props;
+    const router = useRouter();
+    const toast = useToast();
     return (
         <div>
 
@@ -36,7 +39,27 @@ export const PetList = (props: petListProps) => {
                                 <SpeciesText key={pet.pet_id} petSpeciesId={pet.speciesId} species={species}/>
                             </Box>
                             <Box>
-                                <Button size={'xs'}><Link href={{pathname: editUrl}}>Edit Pet</Link></Button>
+                                <Button size={'xs'} ml={1} mr={1}><Link href={{pathname: editUrl}}>Edit Pet</Link></Button>
+                                <Button size={'xs'} onClick={() => 
+                                    fetch('http://localhost:4000/pet/deletepet', {
+                                    credentials: 'include',
+                                    method: 'DELETE',
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify({data: {id: pet.pet_id}})})
+                                    .then(res => {
+                                        if (res.status === 200) {
+                                            router.reload();
+                                        } else {
+                                            toast({
+                                                title: "Delete failed",
+                                                status: "error",
+                                                duration: 6000,
+                                                isClosable: false
+                                            })
+                                        }
+                                    })}>
+                                    Delete Pet
+                                </Button>
                             </Box>
                             {/* , query: {pet_dateOfBirth: date, pet_name: pet.pet_name} moze kiedys zadziala */}
                         </VStack>
