@@ -16,7 +16,7 @@ export const createPet = async (req: Request, res: Response) => {
         });
         if (mySpecies) {
             newPet.species = mySpecies;
-            newPet.dateOfBirth = new Date(req.body.data.date);
+            newPet.dateOfBirth = new Date(req.body.data.dateOfBirth);
             const myClient = await dataSourceConn.manager.findOneBy(Client, {
                 id: req.session.clientId,
             });
