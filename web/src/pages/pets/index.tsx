@@ -1,8 +1,8 @@
 import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
 import {  useEffect, useState } from "react";
-import { DashboardButton } from "../components/DashboardButton";
-import NavBar from "../components/NavBar";
-import { PetList, petProps } from "../components/PetList";
+import { DashboardButton } from "../../components/DashboardButton";
+import NavBar from "../../components/NavBar";
+import { PetList, petProps } from "../../components/PetList";
 
 type isDoctorType = {
     data: string
@@ -49,8 +49,8 @@ const Pets= () => {
                 <Flex direction={'row'} justifyContent={'space-between'} alignContent={'center'}>
                     <Box mt={100} ml={200} maxW='300'>{pets ? species ? <PetList pets={pets} species={species} />: null: null}</Box>
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
-                        <DashboardButton href='/addpet' text='Add Pet'/>
-                        <DashboardButton href='/deletepet' text='Delete Pet'/>
+                        <DashboardButton href='/pets/addpet' text='Add Pet'/>
+                        <DashboardButton href='/pets/deletepet' text='Delete Pet'/>
                     </SimpleGrid>
                 </Flex>
             </Flex>
