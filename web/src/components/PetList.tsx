@@ -30,11 +30,14 @@ export const PetList = (props: petListProps) => {
                 return (    
                 <Box width={400} borderWidth='1px' borderRadius='lg' overflow='hidden' mb={10}>
                     <HStack display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                        {/* TODO: put buttons in a box so they dont stretch */}
                         <VStack display={'flex'} alignItems={'stretch'}>
-                            <Text key={pet.pet_name}>Name: {pet.pet_name}</Text>
-                            <SpeciesText key={pet.pet_id} petSpeciesId={pet.speciesId} species={species}/>
-                            <Button size={'xs'}><Link href={{pathname: editUrl}}>Edit Pet</Link></Button>
+                            <Box>
+                                <Text key={pet.pet_name}>Name: {pet.pet_name}</Text>
+                                <SpeciesText key={pet.pet_id} petSpeciesId={pet.speciesId} species={species}/>
+                            </Box>
+                            <Box>
+                                <Button size={'xs'}><Link href={{pathname: editUrl}}>Edit Pet</Link></Button>
+                            </Box>
                             {/* , query: {pet_dateOfBirth: date, pet_name: pet.pet_name} moze kiedys zadziala */}
                         </VStack>
                          <Box>
