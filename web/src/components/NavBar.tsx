@@ -2,7 +2,6 @@ import {
     Box,
     Flex,
     Text,
-    Button,
     Stack,
     Link,
     useColorModeValue,
@@ -10,15 +9,10 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import { DarkModeSwitch } from './DarkModeSwitch';
 import { LoggedInButtons } from './LoggedInButtons';
 import { LoggedOutButtons } from './LoggedOutButtons';
   
 export default function NavBar() {
-    const buttonColor = useColorModeValue('white', 'black');
-    const buttonBg = useColorModeValue('green.500', 'green.200');
-    const buttonColorHover = useColorModeValue('gray.100', 'gray.700');
-    const buttonBgHover = useColorModeValue('green.600', 'green.300');
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     useEffect(() => {
       fetch('http://localhost:4000/auth/', {

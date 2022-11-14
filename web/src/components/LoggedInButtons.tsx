@@ -1,5 +1,4 @@
-import { SearchIcon } from "@chakra-ui/icons";
-import { Button, IconButton, Stack, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Button, Stack, useColorModeValue, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 
