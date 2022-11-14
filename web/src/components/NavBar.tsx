@@ -8,15 +8,27 @@ import {
     useColorModeValue,
     useBreakpointValue,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 import { DarkModeSwitch } from './DarkModeSwitch';
+import { LoggedInButtons } from './LoggedInButtons';
+import { LoggedOutButtons } from './LoggedOutButtons';
   
 export default function NavBar() {
     const buttonColor = useColorModeValue('white', 'black');
     const buttonBg = useColorModeValue('green.500', 'green.200');
     const buttonColorHover = useColorModeValue('gray.100', 'gray.700');
     const buttonBgHover = useColorModeValue('green.600', 'green.300');
-
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    useEffect(() => {
+      fetch('http://localhost:4000/auth/', {
+        credentials: 'include',
+        method: 'get',
+        headers: {'Content-Type': 'application/json'}})
+        .then((res) => res.json())
+        .then(data => setIsLoggedIn(data.auth))
+        .catch(err => console.log(err))
+    }, [])
     return (
       <Box width={'100%'}>
         <Flex
@@ -40,7 +52,8 @@ export default function NavBar() {
               <Nav />
             </Flex>
           </Flex>
-          <Stack
+          {isLoggedIn ? <LoggedInButtons/>: <LoggedOutButtons />}
+          {/* <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
             direction={'row'}
@@ -74,7 +87,7 @@ export default function NavBar() {
               Sign Up
             </Button>
             <DarkModeSwitch />
-          </Stack>
+          </Stack> */}
         </Flex>
       </Box>
     );
