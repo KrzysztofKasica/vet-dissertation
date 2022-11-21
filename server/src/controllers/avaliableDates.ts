@@ -41,6 +41,7 @@ export const getDates = async (req: Request, res: Response) => {
             'doctor.firstName',
             'doctor.lastName'
         ])
+        .orderBy("avaliableDates.avaliableDate", "ASC")
         .getMany()
         res.status(200).send(dates)
     }
