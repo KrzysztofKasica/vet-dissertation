@@ -42,8 +42,12 @@ export const getMedication = async (req: Request, res: Response) => {
         const medication = await medicationRepository
         .createQueryBuilder("medication")
         .leftJoinAndSelect("medication.species", "species")
+        .select([
+            'medication.name',
+            'medication.dosePerKg',
+            'species.name'
+        ])
         .getMany()
-        console.log(medication)
         res.status(200).send(medication)
     } else {
         res.status(400).send('Not Authenticated')
