@@ -36,3 +36,16 @@ export const addMedication = async (req: Request, res: Response) => {
         res.status(400).send('Not Authenticated');
     }
 }
+
+export const getMedication = async (req: Request, res: Response) => {
+    if (isAuth(req)) {
+        const medication = await medicationRepository
+        .createQueryBuilder("medication")
+        .leftJoinAndSelect("medication.species", "species")
+        .getMany()
+        console.log(medication)
+        res.status(200).send(medication)
+    } else {
+        res.status(400).send('Not Authenticated')
+    }
+}
