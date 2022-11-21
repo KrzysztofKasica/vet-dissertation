@@ -14,6 +14,7 @@ import { visitRouter } from "./routers/visit";
 import { doctorRouter } from "./routers/doctor";
 import { medicationRouter } from "./routers/medication";
 import { prescriptionRouter } from "./routers/prescription";
+import { avaliableDatesRouter } from "./routers/avaliableDates";
 const bodyParser = require('body-parser');
 
 const main = async () => {
@@ -70,7 +71,8 @@ const main = async () => {
     app.use('/visit', visitRouter);
     app.use('/doctor', doctorRouter);
     app.use('/medication', medicationRouter);
-    app.use('/prescription', prescriptionRouter)
+    app.use('/prescription', prescriptionRouter);
+    app.use('/avaliabledates', avaliableDatesRouter)
     app.listen(4000, () => {
         console.log('server started on localhost:4000');
     })

@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { AvaliableDates } from "./entities/AvaliableDates";
 import { Client } from "./entities/Client";
 import { Doctor } from "./entities/Doctor";
 import { Medication } from "./entities/Medication";
@@ -14,7 +15,7 @@ export const dataSourceConn = new DataSource({
         password: 'postgres',
         logging: true,
         synchronize: true,
-        entities: [Client, Doctor, Pet, Species, Medication, Prescription, Visit]
+        entities: [Client, Doctor, Pet, Species, Medication, Prescription, Visit, AvaliableDates]
     });
 
 
