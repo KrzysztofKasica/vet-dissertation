@@ -3,7 +3,7 @@ import { dataSourceConn } from "../app-data-source";
 import { Species } from "../entities/Species";
 import { isAuth } from "../isAuth";
 
-const speciesRepository = dataSourceConn.manager.getRepository(Species);
+export const speciesRepository = dataSourceConn.manager.getRepository(Species);
 
 export const getSpecies = async (req: Request, res: Response) => {
     if (isAuth(req)) {

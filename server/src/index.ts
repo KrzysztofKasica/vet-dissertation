@@ -12,6 +12,7 @@ import { speciesRouter } from "./routers/species";
 import { authRouter } from "./routers/auth";
 import { visitRouter } from "./routers/visit";
 import { doctorRouter } from "./routers/doctor";
+import { medicationRouter } from "./routers/medication";
 const bodyParser = require('body-parser');
 
 const main = async () => {
@@ -67,6 +68,7 @@ const main = async () => {
     app.use('/auth', authRouter);
     app.use('/visit', visitRouter);
     app.use('/doctor', doctorRouter);
+    app.use('/medication', medicationRouter);
     app.listen(4000, () => {
         console.log('server started on localhost:4000');
     })
