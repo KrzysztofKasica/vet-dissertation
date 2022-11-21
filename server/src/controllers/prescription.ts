@@ -18,12 +18,11 @@ export const getPrescriptionsByClient = async (req: Request, res: Response) => {
             .innerJoinAndSelect('pet.client', 'client')
             .where("client.id = :id", { id: req.session.clientId })
             .innerJoinAndSelect('prescription.medication', 'medication')
-            .innerJoinAndSelect('prescription.visit', 'visit')
             .select([
                 'prescription.quantity',
                 'pet.name',
                 'medication.name',
-                'visit.startDate'
+                'prescription.createdAt'
             ])
             .getMany();
             res.status(200).send(myPrescriptions)
