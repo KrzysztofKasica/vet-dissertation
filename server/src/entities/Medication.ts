@@ -1,5 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Prescription } from "./Prescription";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Species } from "./Species";
 
 @Entity()
@@ -17,6 +16,4 @@ export class Medication {
     @JoinTable()
     species: Species[];
 
-    @ManyToOne(() => Prescription, (prescription) => prescription.medication)
-    prescription: Prescription;
 }

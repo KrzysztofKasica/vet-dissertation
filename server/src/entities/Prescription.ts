@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Doctor } from "./Doctor";
 import { Medication } from "./Medication";
 import { Pet } from "./Pet";
@@ -11,9 +11,10 @@ export class Prescription {
     
     @Column()
     name!: string;
-    
-    @OneToMany(() => Medication, (medication) => medication.prescription)
-    medication: Medication[];
+
+    @ManyToMany(() => Medication)
+    @JoinTable()
+    medication: Medication[]
 
     @Column()
     quantity!: number;
