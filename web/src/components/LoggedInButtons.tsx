@@ -34,6 +34,20 @@ export const LoggedInButtons = () => {
             direction={'row'}
             spacing={6}>
             <Button
+                as={'a'}
+                display={{ base: 'none', md: 'inline-flex' }}
+                fontSize={'sm'}
+                fontWeight={600}
+                color={buttonColor}
+                bg={buttonBg}
+                _hover={{
+                bg: buttonBgHover,
+                color: buttonColorHover
+                }}
+                href={'/dashboard'}>
+                Dashboard
+            </Button>
+            <Button
                 display={{ base: 'none', md: 'inline-flex' }}
                 fontSize={'sm'}
                 fontWeight={600}
