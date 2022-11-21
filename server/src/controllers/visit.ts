@@ -6,7 +6,7 @@ import { petRepository } from "./pet";
 import { doctorRepository } from "./doctor";
 import { clientRepository } from "./client";
 
-const visitRepository = dataSourceConn.manager.getRepository(Visit);
+export const visitRepository = dataSourceConn.manager.getRepository(Visit);
 
 export const getVisitByUser = async (req: Request, res: Response) => {
     if (isAuth(req)) {

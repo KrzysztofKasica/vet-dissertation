@@ -4,7 +4,7 @@ import { isAuth } from "../isAuth";
 import { Medication } from "../entities/Medication";
 import { speciesRepository } from "./species";
 
-const medicationRepository = dataSourceConn.manager.getRepository(Medication);
+export const medicationRepository = dataSourceConn.manager.getRepository(Medication);
 
 export const addMedication = async (req: Request, res: Response) => {
     if (isAuth(req)) {
