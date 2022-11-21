@@ -14,9 +14,18 @@ export const getPrescriptionsByClient = async (req: Request, res: Response) => {
     if (isAuth(req)) {
         if (!isDoctor(req)) {
             const myPrescriptions = await prescriptionRepository.createQueryBuilder("prescription")
-            .select(['prescription.id', 'prescription.quantity', 'prescription.medicationId', 'prescription.clientId', 'prescription.doctorId', 'prescription.petId'])
-            .where("visit.clientId = :id", { id: req.session.clientId })
-            .getRawMany()
+            .innerJoinAndSelect('prescription.pet', 'pet')
+            .innerJoinAndSelect('pet.client', 'client')
+            .where("client.id = :id", { id: req.session.clientId })
+            .innerJoinAndSelect('prescription.medication', 'medication')
+            .innerJoinAndSelect('prescription.visit', 'visit')
+            .select([
+                'prescription.quantity',
+                'pet.name',
+                'medication.name',
+                'visit.startDate'
+            ])
+            .getMany();
             res.status(200).send(myPrescriptions)
         }
     } else {
