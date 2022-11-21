@@ -28,7 +28,6 @@ export const addMedication = async (req: Request, res: Response) => {
                 console.log(error);
                 res.status(500).send('Saving error');
             }
-            res.status(200).send(species);
         } else {
             res.status(400).send();
         }
