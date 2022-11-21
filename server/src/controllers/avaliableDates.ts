@@ -31,3 +31,17 @@ export const addDate = async (req: Request, res: Response) => {
     }
 }
 
+export const getDates = async (req: Request, res: Response) => {
+    if (isAuth(req)) {
+        const dates = await avaliableDatesRepository
+        .createQueryBuilder("avaliableDates")
+        .leftJoinAndSelect("avaliableDates.doctors", "doctor")
+        .select([
+            'avaliableDates.avaliableDate',
+            'doctor.firstName',
+            'doctor.lastName'
+        ])
+        .getMany()
+        res.status(200).send(dates)
+    }
+}
