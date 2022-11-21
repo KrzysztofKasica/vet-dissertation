@@ -8,16 +8,13 @@ import { Visit } from "./Visit";
 export class Prescription {
     @PrimaryGeneratedColumn()
     id!: number;
-    
-    @Column()
-    name!: string;
 
     @ManyToMany(() => Medication)
     @JoinTable()
     medication: Medication[]
 
-    @Column()
-    quantity!: number;
+    @Column("int", { array: true })
+    quantity!: Number[];
 
     @ManyToOne(() => Pet, (pet) => pet.prescriptions, {
         onDelete: 'CASCADE',
