@@ -39,7 +39,8 @@ export const createVisit = async (req: Request, res: Response) => {
         newVisit.startDate = new Date(req.body.data.startDate);
         newVisit.status = Status.ToBeAccepted;
         const myPet = await petRepository.createQueryBuilder("pet")
-        .where("pet.id = :id", { id: req.body.data.petId })
+        .where("pet.name = :name", { id: req.body.data.petName })
+        .where("pet.clientId = :id", { id: req.session.clientId})
         .getOne();
         if (myPet) {
             newVisit.pet = myPet;
