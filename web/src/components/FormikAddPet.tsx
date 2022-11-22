@@ -20,7 +20,6 @@ export const FormikAddPet = (props: addPetProps) => {
         initialValues={{ name: '', dateOfBirth: '', species: speciesName }}
         onSubmit={async (values) => {
           values.species = speciesName.toLowerCase();
-          console.log(values)
           const response = await fetch('http://localhost:4000/pet/createpet', {
             credentials: 'include',
             method: 'POST',
@@ -34,7 +33,7 @@ export const FormikAddPet = (props: addPetProps) => {
                 status: "error",
                 duration: 6000,
                 isClosable: false
-          })
+              })
             }
         }}
       >
