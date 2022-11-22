@@ -4,7 +4,7 @@ import { isAuth } from "../isAuth";
 import { doctorRepository } from "./doctor";
 import { AvaliableDates } from "../entities/AvaliableDates";
 
-const avaliableDatesRepository = dataSourceConn.manager.getRepository(AvaliableDates);
+export const avaliableDatesRepository = dataSourceConn.manager.getRepository(AvaliableDates);
 
 export const addDate = async (req: Request, res: Response) => {
     if (isAuth(req)) {
@@ -40,7 +40,8 @@ export const getDates = async (req: Request, res: Response) => {
             'avaliableDates.avaliableDate',
             'doctor.firstName',
             'doctor.lastName',
-            'doctor.id'
+            'doctor.id',
+            'avaliableDates.id'
         ])
         .orderBy("avaliableDates.avaliableDate", "ASC")
         .getMany()

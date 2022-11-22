@@ -5,6 +5,7 @@ import { isAuth } from "../isAuth";
 import { petRepository } from "./pet";
 import { doctorRepository } from "./doctor";
 import { clientRepository } from "./client";
+import { AvaliableDates } from "../entities/AvaliableDates";
 
 export const visitRepository = dataSourceConn.manager.getRepository(Visit);
 
@@ -34,6 +35,7 @@ export const getLatestVisitByUser = async (req: Request, res: Response) => {
 }
 
 export const createVisit = async (req: Request, res: Response) => {
+    console.log(req)
     if (isAuth(req)) {
         const newVisit = new Visit();
         newVisit.startDate = new Date(req.body.data.startDate);
@@ -57,6 +59,11 @@ export const createVisit = async (req: Request, res: Response) => {
                     newVisit.doctor = myDoctor;
                     try {
                         await dataSourceConn.manager.save(newVisit);
+                        await dataSourceConn.createQueryBuilder()
+                        .delete()
+                        .from(AvaliableDates)
+                        .where("id = :id", { id: req.body.data.dateId })
+                        .execute()
                         res.status(200).send('Visit created');
                     }
                     catch (error){
