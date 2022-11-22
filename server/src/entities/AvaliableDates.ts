@@ -8,7 +8,7 @@ export class AvaliableDates {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column({unique: true})
     avaliableDate: Date
 
     @ManyToMany(() => Doctor)
