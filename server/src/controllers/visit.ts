@@ -14,6 +14,7 @@ export const getVisitByUser = async (req: Request, res: Response) => {
         const myVisits = await visitRepository.createQueryBuilder("visit")
         .select(['visit.id', 'visit.startDate', 'visit.status', 'visit.doctorId', 'visit.petId'])
         .where("visit.clientId = :id", { id: req.session.clientId })
+        .orderBy("visit.startDate", "ASC")
         .getRawMany()
         res.status(200).send(myVisits)
     } else {
@@ -26,6 +27,7 @@ export const getLatestVisitByUser = async (req: Request, res: Response) => {
         const myVisits = await visitRepository.createQueryBuilder("visit")
         .select(['visit.id', 'visit.startDate', 'visit.status', 'visit.doctorId', 'visit.petId'])
         .where("visit.clientId = :id", { id: req.session.clientId })
+        .orderBy("visit.startDate", "ASC")
         .limit(5)
         .getRawMany()
         res.status(200).send(myVisits)
