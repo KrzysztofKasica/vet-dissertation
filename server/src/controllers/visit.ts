@@ -35,7 +35,6 @@ export const getLatestVisitByUser = async (req: Request, res: Response) => {
 }
 
 export const createVisit = async (req: Request, res: Response) => {
-    console.log(req)
     if (isAuth(req)) {
         const newVisit = new Visit();
         newVisit.startDate = new Date(req.body.data.startDate);
@@ -60,7 +59,7 @@ export const createVisit = async (req: Request, res: Response) => {
                     try {
                         await dataSourceConn.manager.save(newVisit);
                         await dataSourceConn.createQueryBuilder()
-                        .delete()
+                        .softDelete()
                         .from(AvaliableDates)
                         .where("id = :id", { id: req.body.data.dateId })
                         .execute()

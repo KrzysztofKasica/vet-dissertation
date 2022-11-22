@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Doctor } from "./Doctor";
 
 
@@ -14,4 +14,7 @@ export class AvaliableDates {
     @ManyToMany(() => Doctor)
     @JoinTable()
     doctors: Doctor[];
+
+    @DeleteDateColumn()
+    deletedAt: Date;
 }
