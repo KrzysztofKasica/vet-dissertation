@@ -39,7 +39,8 @@ export const getDates = async (req: Request, res: Response) => {
         .select([
             'avaliableDates.avaliableDate',
             'doctor.firstName',
-            'doctor.lastName'
+            'doctor.lastName',
+            'doctor.id'
         ])
         .orderBy("avaliableDates.avaliableDate", "ASC")
         .getMany()
