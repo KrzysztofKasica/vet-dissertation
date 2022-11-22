@@ -28,7 +28,7 @@ export const FormikBookAVisit = (props: bookAVisitProps) => {
 
                             return (
                                 <Formik
-                                    initialValues={{ startDate: date, doctorId: doctor.id, dateId: singleDate.id, petName: '' }}
+                                    initialValues={{ startDate: singleDate.avaliableDate, doctorId: doctor.id, dateId: singleDate.id, petName: '' }}
                                     onSubmit={async (values) => {  
                                         console.log('valuses ', values)
                                         const response = await fetch('http://localhost:4000/visit/createvisit', {
