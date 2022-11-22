@@ -6,6 +6,7 @@ import { petRepository } from "./pet";
 import { doctorRepository } from "./doctor";
 import { clientRepository } from "./client";
 import { AvaliableDates } from "../entities/AvaliableDates";
+import { avaliableDatesRepository } from "./avaliableDates";
 
 export const visitRepository = dataSourceConn.manager.getRepository(Visit);
 
@@ -58,18 +59,34 @@ export const createVisit = async (req: Request, res: Response) => {
                 .getOne();
                 if (myDoctor) {
                     newVisit.doctor = myDoctor;
-                    try {
-                        await dataSourceConn.manager.save(newVisit);
-                        await dataSourceConn.createQueryBuilder()
-                        .softDelete()
-                        .from(AvaliableDates)
-                        .where("id = :id", { id: req.body.data.dateId })
-                        .execute()
-                        res.status(200).send('Visit created');
-                    }
-                    catch (error){
-                        console.log(error);
-                        res.status(500).send('Saving error');
+                    const myDate = await avaliableDatesRepository.createQueryBuilder("avaliableDates")
+                    .where("avaliableDates.id = :id", { id: req.body.data.dateId })
+                    .leftJoinAndSelect('avaliableDates.doctors', "doctor")
+                    .select([
+                        'avaliableDates.id',
+                        'doctor.id'
+                    ])
+                    .getOne();
+                    if (myDate) {
+                        try {
+                            await dataSourceConn.manager.save(newVisit);
+                            myDate.doctors = myDate.doctors.filter(id => id.id != req.body.data.doctorId);
+                            await dataSourceConn.manager.save(myDate);
+                            if (myDate.doctors.length === 0) {
+                                await dataSourceConn.createQueryBuilder()
+                                .softDelete()
+                                .from(AvaliableDates)
+                                .where("id = :id", { id: req.body.data.dateId })
+                                .execute();
+                            }   
+                            res.status(200).send("Visit created");
+                        }
+                        catch (error){
+                            console.log(error);
+                            res.status(500).send('Saving error');
+                        }
+                    } else {
+                        res.status(500).send();
                     }
                 } else {
                     res.status(500).send();
