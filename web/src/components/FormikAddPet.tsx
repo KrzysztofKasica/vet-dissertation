@@ -26,6 +26,12 @@ export const FormikAddPet = (props: addPetProps) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({data: values})})
             if (response.status === 200) {
+              toast({
+                title: "Pet created",
+                status: "success",
+                duration: 6000,
+                isClosable: false
+              })
               router.push('/pets');
             } else {
               toast({

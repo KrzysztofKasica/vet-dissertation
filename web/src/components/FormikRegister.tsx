@@ -10,14 +10,11 @@ export const FormikRegister = () => {
       <Formik
         initialValues={{ email: '', password: '', firstName: '', lastName: '' }}
         onSubmit={async (values) => {
-          console.log('git');
           const res = await axios.post(
             'http://127.0.0.1:4000/client/register',
             {data: values},
             { headers: { 'Content-Type': 'application/json' } }
           );
-          console.log(res);
-          console.log(res.data)
         }}
       >
         {({isSubmitting}) => (

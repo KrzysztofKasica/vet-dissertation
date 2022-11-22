@@ -48,6 +48,12 @@ export const PetList = (props: petListProps) => {
                                     body: JSON.stringify({data: {id: pet.pet_id}})})
                                     .then(res => {
                                         if (res.status === 200) {
+                                            toast({
+                                                title: "Pet deleted",
+                                                status: "success",
+                                                duration: 6000,
+                                                isClosable: false
+                                            })
                                             router.reload();
                                         } else {
                                             toast({
