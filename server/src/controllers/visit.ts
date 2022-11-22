@@ -101,3 +101,63 @@ export const createVisit = async (req: Request, res: Response) => {
         res.status(400).send('Not Authenticated');
     }
 }
+
+
+export const cancelVisit = async (req: Request, res: Response) => {
+    // console.log(req)
+    if (isAuth(req)) {
+        const visit = await visitRepository.createQueryBuilder("visit")
+        .where("visit.id = :visitId AND (visit.clientId = :id OR visit.doctorId = :id) AND (visit.status = :tobe OR visit.status = :pending)", { visitId: req.body.data.visitId, id: req.session.clientId, tobe: 'TO BE ACCEPTED', pending: 'PENDING'})
+        .getOne();
+        if (visit) {
+            
+            // console.log(visit)
+            const date = new Date(req.body.data.date)
+            // const date = new Date('2022-02-11T16:30:00.000Z')
+            const myDate = await avaliableDatesRepository.createQueryBuilder("avaliableDates")
+            .where("avaliableDates.avaliableDate = :date", { date: req.body.data.date})
+            .leftJoinAndSelect('avaliableDates.doctors', "doctor")
+            .select([
+                'avaliableDates.id',
+                'doctor.id'
+            ])
+            .getOne();
+            console.log(myDate)
+            console.log('DATA TUTAJ    ', date)
+
+            try {
+                if(!myDate) {
+                    await dataSourceConn.createQueryBuilder()
+                    .restore()
+                    .from(AvaliableDates)
+                    .where("avaliableDate = :date", { date: req.body.data.date })
+                    .execute()
+                }
+                const myDoctor = await doctorRepository.createQueryBuilder('doctor')
+                .where('id = :id', { id: req.body.data.doctorId })
+                .getOne();
+                if(myDoctor) {
+                    myDate?.doctors.push(myDoctor)
+                    console.log(myDoctor)
+                    await dataSourceConn.manager.save(myDate);
+                    await dataSourceConn.createQueryBuilder()
+                    .delete()
+                    .from(Visit)
+                    .where("id = :id", { id: req.body.data.visitId })
+                    .execute();
+                    res.status(200).send("Visit Cancelled");
+                } else {
+                    res.status(500).send()
+                }
+            }
+            catch (error){
+                console.log(error);
+                res.status(500).send('Saving error');
+            }
+        } else {
+            res.status(400).send('Not Authorized');
+        }
+    } else {
+        res.status(400).send('Not Authenticated');
+    }
+}
