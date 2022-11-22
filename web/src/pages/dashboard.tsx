@@ -44,7 +44,7 @@ const Dashboard= () => {
                         <DashboardButton href='/visits' text='Visit History'/>
                         <DashboardButton href='/pets' text='Pets'/>
                         <DashboardButton href='/prescriptions' text='Prescriptions'/>
-                        <DashboardButton href='/' text='Book a Visit'/>
+                        <DashboardButton href='/bookavisit' text='Book a Visit'/>
                     </SimpleGrid>
                 </Flex>
             </Flex>
