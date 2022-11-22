@@ -45,6 +45,7 @@ export const getDates = async (req: Request, res: Response) => {
         ])
         .orderBy("avaliableDates.avaliableDate", "ASC")
         .getMany()
+        dates.map(date => date.avaliableDate.setHours(date.avaliableDate.getHours() + 1))
         res.status(200).send(dates)
     }
 }
