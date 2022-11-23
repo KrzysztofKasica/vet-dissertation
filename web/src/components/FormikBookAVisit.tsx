@@ -28,9 +28,8 @@ export const FormikBookAVisit = (props: bookAVisitProps) => {
 
                             return (
                                 <Formik
-                                    initialValues={{ startDate: singleDate.avaliableDate, doctorId: doctor.id, dateId: singleDate.id, petName: '' }}
+                                    initialValues={{ startDate: singleDate.avaliableDate, doctorId: doctor.id, dateId: singleDate.id, petName: pets[0].pet_name }}
                                     onSubmit={async (values) => {  
-                                        console.log('valuses ', values)
                                         const response = await fetch('http://localhost:4000/visit/createvisit', {
                                             credentials: 'include',
                                             method: 'POST',
@@ -62,7 +61,7 @@ export const FormikBookAVisit = (props: bookAVisitProps) => {
                                                     <Text key={singleDate.avaliableDate.toString()}>{date}</Text>
                                                     <Text key={doctor.firstName}>{'Dr ' + doctor.firstName + ' ' + doctor.lastName}</Text>
                                                 </Box>
-                                                <Field as="select" name="petName" placeholder='Select Pet'>
+                                                <Field as="select" name="petName" placeholder='Select Pet' >
                                                     {pets.map(pet => {
                                                         return (
                                                             <option key={pet.pet_name} value={pet.pet_name}>{pet.pet_name}</option>
