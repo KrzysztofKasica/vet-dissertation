@@ -137,7 +137,7 @@ export const doesPetBelongToUser = async (req: Request, res: Response) => {
     if (isAuth(req)) {
         const myPet = await petRepository.createQueryBuilder("pet")
         .select(['pet.clientId'])
-        .where("pet.id = :id", { id: req.body.data.id })
+        .where("pet.id = :id", { id: req.params.id })
         .getRawOne();
         if (myPet) {
             if (myPet.clientId === req.session.clientId) {

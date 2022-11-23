@@ -34,16 +34,15 @@ const EditPet= () => {
         .then(data => setSpecies(data))
         .catch(err => console.log(err))
 
-        // fetch('http://localhost:4000/pet/doespetbelongtouser', {
-        // credentials: 'include',
-        // method: 'get',
-        // headers: {'Content-Type': 'application/json'},
-        // body: JSON.stringify({data: 'gowno'})})
-        // .then(res => res.json())
-        // .then(data => setIsUserPet(data))
-        // .catch(err => console.log(err))
+        fetch('http://localhost:4000/pet/doespetbelongtouser/' + +window.location.href.split("/")[4].toString(), {
+        credentials: 'include',
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(data => setIsUserPet(data))
+        .catch(err => console.log(err))
     }, [])
-    if(status===200 && isDoctor.data === "false") {
+    if(status===200 && isDoctor.data === "false" && isUserPet.data === "true") {
         return (
             <Flex direction={"column"} justifyContent='center' alignContent={'center'}>
                 <NavBar/>

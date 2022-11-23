@@ -13,6 +13,6 @@ petRouter.get('/getpetsnamelistbyuser', getPetsNameListByUser)
 
 petRouter.get('/getpet', getPetById);
 
-petRouter.get('/doespetbelongtouser', doesPetBelongToUser);
+petRouter.get('/doespetbelongtouser/:id', doesPetBelongToUser);
 
 petRouter.delete('/deletepet', deletePet)
