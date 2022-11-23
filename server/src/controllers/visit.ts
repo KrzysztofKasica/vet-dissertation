@@ -13,7 +13,9 @@ export const visitRepository = dataSourceConn.manager.getRepository(Visit);
 export const getVisitByUser = async (req: Request, res: Response) => {
     if (isAuth(req)) {
         const myVisits = await visitRepository.createQueryBuilder("visit")
-        .select(['visit.id', 'visit.startDate', 'visit.status', 'visit.doctorId', 'visit.petId'])
+        .leftJoinAndSelect('visit.doctor', 'doctor')
+        .leftJoinAndSelect('visit.pet', 'pet')
+        .select(['visit.id', 'visit.startDate', 'visit.status', 'doctor.id', 'doctor.firstName','doctor.lastName', 'pet.name'])
         .where("visit.clientId = :id", { id: req.session.clientId })
         .orderBy("visit.startDate", "ASC")
         .getRawMany()
@@ -26,7 +28,9 @@ export const getVisitByUser = async (req: Request, res: Response) => {
 export const getLatestVisitByUser = async (req: Request, res: Response) => {
     if (isAuth(req)) {
         const myVisits = await visitRepository.createQueryBuilder("visit")
-        .select(['visit.id', 'visit.startDate', 'visit.status', 'visit.doctorId', 'visit.petId'])
+        .leftJoinAndSelect('visit.doctor', 'doctor')
+        .leftJoinAndSelect('visit.pet', 'pet')
+        .select(['visit.id', 'visit.startDate', 'visit.status', 'doctor.id', 'doctor.firstName','doctor.lastName', 'pet.name'])
         .where("visit.clientId = :id", { id: req.session.clientId })
         .orderBy("visit.startDate", "ASC")
         .limit(5)

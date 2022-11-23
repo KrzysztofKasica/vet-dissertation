@@ -5,8 +5,10 @@ export type visitProps ={
     visit_id: number;
     visit_status: string;
     visit_startDate: Date;
-    doctorId: number;
-    petId: number;
+    doctor_id: number;
+    doctor_firstName: string;
+    doctor_lastName: string;
+    pet_name: string;
 };
 
 interface visitListProps {
@@ -21,7 +23,7 @@ export const VisitList = (props: visitListProps) => {
         <div>
             {visits.map(visit => {
                 const date = visit.visit_startDate.toString().replace('T', ' ').replace(':00.000Z', '');
-                const cancelData = {date: visit.visit_startDate, doctorId: visit.doctorId, visitId: visit.visit_id }
+                const cancelData = {date: visit.visit_startDate, doctorId: visit.doctor_id, visitId: visit.visit_id }
                 const cancelVisit = async () =>{
                     const response = await fetch('http://localhost:4000/visit/cancelvisit', {
                     credentials: 'include',
@@ -49,8 +51,8 @@ export const VisitList = (props: visitListProps) => {
                 <Box width={400} borderWidth='1px' borderRadius='lg' overflow='hidden' mb={10}>
                     <HStack display={'flex'} justifyContent={'space-between'}>
                         <Box>
-                            <Text key={visit.petId}>{visit.petId}</Text>
-                            <Text key={visit.doctorId}>{visit.doctorId}</Text>
+                            <Text key={visit.pet_name}>{visit.pet_name}</Text>
+                            <Text key={visit.doctor_id + visit.visit_id}>{'Dr ' + visit.doctor_firstName + ' ' + visit.doctor_lastName}</Text>
                             <Text key={visit.visit_status}>{visit.visit_status}</Text>
                         </Box>
                         <Box>
