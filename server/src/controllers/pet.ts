@@ -125,7 +125,13 @@ export const getPetsNameListByUser = async (req: Request, res: Response) => {
 export const getPetById = async (req: Request, res: Response) => {
     if (isAuth(req)) {
         const myPet = await petRepository.createQueryBuilder("pet")
-        .where("pet.id = :id", { id: req.body.data.id })
+        .where("pet.id = :id", { id: req.params.id })
+        .leftJoinAndSelect('pet.species', 'species')
+        .select([
+            'pet.name',
+            'pet.dateOfBirth',
+            'species.name'
+        ])
         .getOne();
         res.status(200).send(myPet);
     } else {

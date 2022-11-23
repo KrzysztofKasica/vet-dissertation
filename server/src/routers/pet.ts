@@ -11,7 +11,7 @@ petRouter.get('/getpets', getPetsByUser);
 
 petRouter.get('/getpetsnamelistbyuser', getPetsNameListByUser)
 
-petRouter.get('/getpet', getPetById);
+petRouter.get('/getpet/:id', getPetById);
 
 petRouter.get('/doespetbelongtouser/:id', doesPetBelongToUser);
 
