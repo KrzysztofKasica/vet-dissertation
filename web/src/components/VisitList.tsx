@@ -48,7 +48,7 @@ export const VisitList = (props: visitListProps) => {
                       }
                 }
                 return (    
-                <Box width={400} borderWidth='1px' borderRadius='lg' overflow='hidden' mb={10}>
+                <Box width={400} borderWidth='1px' borderRadius='lg' overflow='hidden' mb={10} shadow={'dark-lg'}>
                     <HStack display={'flex'} justifyContent={'space-between'}>
                         <Box>
                             <Text key={visit.pet_name}>{visit.pet_name}</Text>

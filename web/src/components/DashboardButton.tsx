@@ -11,7 +11,7 @@ export const DashboardButton = (props: dashboardButtonProps) => {
     const buttonColorHover = useColorModeValue('gray.100', 'gray.700');
     const buttonBgHover = useColorModeValue('green.600', 'green.300');
     return (
-        <Box height={40} width={40} borderRadius='full'>
+        <Box height={40} width={40} shadow={"dark-lg"} borderRadius={'full'}>
             <Button
                 as={'a'}
                 display={{ base: 'none', md: 'inline-flex' }}
