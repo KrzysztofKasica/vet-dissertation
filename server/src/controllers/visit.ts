@@ -118,7 +118,7 @@ export const cancelVisit = async (req: Request, res: Response) => {
             // console.log(visit)
             const date = new Date(req.body.data.date)
             // const date = new Date('2022-02-11T16:30:00.000Z')
-            const myDate = await avaliableDatesRepository.createQueryBuilder("avaliableDates")
+            var myDate = await avaliableDatesRepository.createQueryBuilder("avaliableDates")
             .where("avaliableDates.avaliableDate = :date", { date: req.body.data.date})
             .leftJoinAndSelect('avaliableDates.doctors', "doctor")
             .select([
@@ -135,7 +135,16 @@ export const cancelVisit = async (req: Request, res: Response) => {
                     .restore()
                     .from(AvaliableDates)
                     .where("avaliableDate = :date", { date: req.body.data.date })
-                    .execute()
+                    .execute();
+
+                    myDate = await avaliableDatesRepository.createQueryBuilder("avaliableDates")
+                    .where("avaliableDates.avaliableDate = :date", { date: req.body.data.date})
+                    .leftJoinAndSelect('avaliableDates.doctors', "doctor")
+                    .select([
+                        'avaliableDates.id',
+                        'doctor.id'
+                    ])
+                    .getOne();
                 }
                 const myDoctor = await doctorRepository.createQueryBuilder('doctor')
                 .where('id = :id', { id: req.body.data.doctorId })
