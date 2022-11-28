@@ -217,7 +217,6 @@ export const getIncomingVisits = async (req: Request, res: Response) => {
 
 export const getVisitHistory = async (req: Request, res: Response) => {
     if (isAuth(req) && isDoctor(req)) {
-        const currentDate = new Date();
         const myVisits = await visitRepository.createQueryBuilder("visit")
         .leftJoinAndSelect('visit.client', 'client')
         .leftJoinAndSelect('visit.pet', 'pet')
