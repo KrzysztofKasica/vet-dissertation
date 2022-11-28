@@ -198,3 +198,19 @@ export const acceptVisit = async (req: Request, res: Response) => {
         res.status(400).send('Not Authenticated');
     }
 }
+
+export const getIncomingVisits = async (req: Request, res: Response) => {
+    if (isAuth(req) && isDoctor(req)) {
+        const currentDate = new Date();
+        const myVisits = await visitRepository.createQueryBuilder("visit")
+        .leftJoinAndSelect('visit.client', 'client')
+        .leftJoinAndSelect('visit.pet', 'pet')
+        .select(['visit.id', 'visit.startDate', 'client.id', 'client.firstName','client.lastName', 'pet.name'])
+        .where("visit.doctorId = :id AND visit.status = :status AND visit.startDate > :date", { id: req.session.clientId, status: Status.Pending, date: currentDate})
+        .orderBy("visit.startDate", "ASC")
+        .getRawMany()
+        res.status(200).send(myVisits)
+    } else {
+        res.status(400).send('Not Authenticated');
+    }
+}

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { acceptVisit, cancelVisit, createVisit, getLatestVisitByUser, getVisitByUser, getVisitRequestsByDoctor } from "../controllers/visit";
+import { acceptVisit, cancelVisit, createVisit, getIncomingVisits, getLatestVisitByUser, getVisitByUser, getVisitRequestsByDoctor } from "../controllers/visit";
 
 export const visitRouter = Router();
 
@@ -14,3 +14,5 @@ visitRouter.delete('/cancelvisit', cancelVisit);
 visitRouter.get('/getvisitrequests', getVisitRequestsByDoctor);
 
 visitRouter.patch('/acceptvisit', acceptVisit);
+
+visitRouter.get('/getincomingvisits', getIncomingVisits);

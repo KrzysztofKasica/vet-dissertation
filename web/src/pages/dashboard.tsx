@@ -57,7 +57,7 @@ const Dashboard= () => {
                     <Box mt={100} ml={200} maxW='300'></Box>
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
                         <DashboardButton href='/visitrequests' text='Visit Requests'/>
-                        <DashboardButton href='/' text='Incoming Visits'/>
+                        <DashboardButton href='/incomingvisits' text='Incoming Visits'/>
                         <DashboardButton href='/' text='Visit History'/>
                         <DashboardButton href='/' text='Medication'/>
                     </SimpleGrid>
