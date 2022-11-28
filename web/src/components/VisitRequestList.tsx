@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Text, useToast, } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, HStack, Text, useToast, } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 export type visitRequestsProps ={
@@ -19,7 +19,8 @@ export const VisitRequestList = (props: visitListProps) => {
     const router = useRouter()
     const toast = useToast()
     return (
-        <div>
+        <Flex direction={'column'} justifySelf={"center"}>
+            <Heading ml={79} mb={2} whiteSpace={'nowrap'}>Visit Requests</Heading>
             {visits.map(visit => {
                 const date = visit.visit_startDate.toString().replace('T', ' ').replace(':00.000Z', '');
                 const cancelData = {date: visit.visit_startDate, visitId: visit.visit_id }
@@ -78,16 +79,16 @@ export const VisitRequestList = (props: visitListProps) => {
                             <Text key={visit.client_id + visit.visit_id}>{ visit.client_firstName + ' ' + visit.client_lastName}</Text>
                         </Box>
                         <Box>
-                            <Text position={'relative'} top={0} right={0} key={visit.visit_startDate.toString()}>{date}</Text>
+                            <Text key={visit.visit_startDate.toString()}>{date}</Text>
                             <Flex gap={"20px"} mr={"1"}>
                                 <Button size={"sm"} onClick={acceptVisit} >Accept</Button>                          
-                                <Button size={"sm"} onClick={cancelVisit} >Cancel</Button>
+                                <Button size={"sm"} onClick={cancelVisit} >Reject</Button>
                             </Flex>
                         </Box>
                     </HStack>
                 </Box>
                 )
                 })}
-        </div>
+        </Flex>
     )
 }

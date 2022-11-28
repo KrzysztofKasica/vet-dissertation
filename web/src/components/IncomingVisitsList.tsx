@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Text, useToast, } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, HStack, Text, useToast, } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 export type incomingVisitsProps ={
@@ -19,7 +19,8 @@ export const IncomingVisitsList = (props: visitListProps) => {
     const router = useRouter()
     const toast = useToast()
     return (
-        <div>
+        <Flex direction={'column'} justifySelf={"center"}>
+            <Heading ml={70} mb={2} whiteSpace={'nowrap'}>Incoming Visits</Heading>
             {visits.map(visit => {
                 const date = visit.visit_startDate.toString().replace('T', ' ').replace(':00.000Z', '');
                 const cancelData = {date: visit.visit_startDate, visitId: visit.visit_id }
@@ -63,6 +64,6 @@ export const IncomingVisitsList = (props: visitListProps) => {
                 </Box>
                 )
                 })}
-        </div>
+        </Flex>
     )
 }

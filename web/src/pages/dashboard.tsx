@@ -56,8 +56,8 @@ const Dashboard= () => {
                 <Flex direction={'row'} justifyContent={'space-between'} alignContent={'center'}>
                     <Box mt={100} ml={200} maxW='300'></Box>
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
-                        <DashboardButton href='/visitrequests' text='Visit Requests'/>
-                        <DashboardButton href='/incomingvisits' text='Incoming Visits'/>
+                        <DashboardButton href='/visitorders' text='Visit Orders'/>
+                        <DashboardButton href='/' text='Patients'/>
                         <DashboardButton href='/visithistory' text='Visit History'/>
                         <DashboardButton href='/' text='Medication'/>
                     </SimpleGrid>
