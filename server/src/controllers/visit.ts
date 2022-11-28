@@ -7,6 +7,7 @@ import { doctorRepository } from "./doctor";
 import { clientRepository } from "./client";
 import { AvaliableDates } from "../entities/AvaliableDates";
 import { avaliableDatesRepository } from "./avaliableDates";
+import { isDoctor } from "../isDoctor";
 
 export const visitRepository = dataSourceConn.manager.getRepository(Visit);
 
@@ -108,17 +109,12 @@ export const createVisit = async (req: Request, res: Response) => {
 
 
 export const cancelVisit = async (req: Request, res: Response) => {
-    // console.log(req)
     if (isAuth(req)) {
         const visit = await visitRepository.createQueryBuilder("visit")
-        .where("visit.id = :visitId AND (visit.clientId = :id OR visit.doctorId = :id) AND (visit.status = :tobe OR visit.status = :pending)", { visitId: req.body.data.visitId, id: req.session.clientId, tobe: 'TO BE ACCEPTED', pending: 'PENDING'})
+        .where("visit.id = :visitId AND visit.clientId = :id AND (visit.status = :tobe OR visit.status = :pending)", { visitId: req.body.data.visitId, id: req.session.clientId, tobe: 'TO BE ACCEPTED', pending: 'PENDING'})
         .getOne();
         if (visit) {
-            
-            // console.log(visit)
-            const date = new Date(req.body.data.date)
-            // const date = new Date('2022-02-11T16:30:00.000Z')
-            var myDate = await avaliableDatesRepository.createQueryBuilder("avaliableDates")
+            let myDate = await avaliableDatesRepository.createQueryBuilder("avaliableDates")
             .where("avaliableDates.avaliableDate = :date", { date: req.body.data.date})
             .leftJoinAndSelect('avaliableDates.doctors', "doctor")
             .select([
@@ -126,9 +122,6 @@ export const cancelVisit = async (req: Request, res: Response) => {
                 'doctor.id'
             ])
             .getOne();
-            console.log(myDate)
-            console.log('DATA TUTAJ    ', date)
-
             try {
                 if(!myDate) {
                     await dataSourceConn.createQueryBuilder()
@@ -151,7 +144,6 @@ export const cancelVisit = async (req: Request, res: Response) => {
                 .getOne();
                 if(myDoctor) {
                     myDate?.doctors.push(myDoctor)
-                    console.log(myDoctor)
                     await dataSourceConn.manager.save(myDate);
                     await dataSourceConn.createQueryBuilder()
                     .delete()
@@ -169,6 +161,38 @@ export const cancelVisit = async (req: Request, res: Response) => {
             }
         } else {
             res.status(400).send('Not Authorized');
+        }
+    } else {
+        res.status(400).send('Not Authenticated');
+    }
+}
+
+export const getVisitRequestsByDoctor = async (req: Request, res: Response) => {
+    if (isAuth(req) && isDoctor(req)) {
+        const myVisits = await visitRepository.createQueryBuilder("visit")
+        .leftJoinAndSelect('visit.client', 'client')
+        .leftJoinAndSelect('visit.pet', 'pet')
+        .select(['visit.id', 'visit.startDate', 'client.id', 'client.firstName','client.lastName', 'pet.name'])
+        .where("visit.doctorId = :id AND visit.status = :status", { id: req.session.clientId, status: Status.ToBeAccepted})
+        .orderBy("visit.startDate", "ASC")
+        .getRawMany()
+        res.status(200).send(myVisits)
+    } else {
+        res.status(400).send('Not Authenticated');
+    }
+}
+
+export const acceptVisit = async (req: Request, res: Response) => {
+    if (isAuth(req) && isDoctor(req)) {
+        const visit = await visitRepository.createQueryBuilder("visit")
+        .where("visit.id = :visitId AND visit.doctorId = :id", {visitId: req.body.data.visitId, id: req.session.clientId})
+        .getOne();
+        if (visit) {
+            visit.status = Status.Pending;
+            await dataSourceConn.manager.save(visit);
+            res.status(200).send();
+        } else {
+            res.status(400).send();
         }
     } else {
         res.status(400).send('Not Authenticated');
