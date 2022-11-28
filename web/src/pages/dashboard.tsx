@@ -58,7 +58,7 @@ const Dashboard= () => {
                     <SimpleGrid mt={120} mr={200} columns={2} spacing={100}>
                         <DashboardButton href='/visitrequests' text='Visit Requests'/>
                         <DashboardButton href='/incomingvisits' text='Incoming Visits'/>
-                        <DashboardButton href='/' text='Visit History'/>
+                        <DashboardButton href='/visithistory' text='Visit History'/>
                         <DashboardButton href='/' text='Medication'/>
                     </SimpleGrid>
                 </Flex>
